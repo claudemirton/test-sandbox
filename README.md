@@ -38,7 +38,8 @@ connecting a RESTful layer backend based on HTTP Services
 ```
 1. Go to folder backend\mendapp 
 2. Execute 'composer install'
-3. Execute 'php artisan serve'
+3. Execute 'php artisan migrate'
+4. Execute 'php artisan serve'
 
 Verify on http://localhost:8000/api/tasks
 ```
