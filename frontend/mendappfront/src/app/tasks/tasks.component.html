@@ -1,0 +1,24 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    <img src="assets/logoMend.png" width="60" height="36" class="d-inline-block align-top" alt="">
+  </a>
+  <span class="navbar-text">
+    <h4>Task List</h4>
+  </span>
+</nav>
+<br />
+
+<input id="task"
+  (keyup.enter)="createTask(title)" #title
+  type="text" class="form-control" 
+  placeholder="Type your new task here and press enter" required minlength="5">
+  
+
+<ul class="list-group">
+  <li *ngFor="let task of tasks" class="list-group-item">
+        <button 
+        (click)=deleteTask(task)
+        class="btn btn-danger btn-sm">Delete</button>
+      {{task.task}}
+  </li>
+</ul>
