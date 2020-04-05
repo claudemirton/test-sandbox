@@ -24,18 +24,18 @@ export class TasksComponent implements OnInit {
     let task = { task: input.value }
     let taskText = "task=" + input.value
     input.value = ''
-    console.log(task)
     this.http.post(this.url + '?' + taskText, [])
       .subscribe(response => {
-        task['id'] = response.json().id
+        const newResponse:any = response
+        task['id'] = JSON.parse(newResponse._body).data.id
         this.tasks.splice(0, 0, task)
       })
   }
 
-  deleteTask(post){
-    this.http.delete(this.url + '/' + post.id)
+  deleteTask(task){
+    this.http.delete(this.url + '/' + task.id)
       .subscribe(response => {
-        let index = this.tasks.indexOf(post)
+        let index = this.tasks.indexOf(task)
         this.tasks.splice(index, 1)
       })
   }
