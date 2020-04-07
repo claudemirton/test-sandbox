@@ -16,9 +16,19 @@
 
 <ul class="list-group">
   <li *ngFor="let task of tasks" class="list-group-item">
-        <button 
+        <!-- <button 
         (click)=deleteTask(task)
         class="btn btn-danger btn-sm">Delete</button>
-      {{task.task}}
+      {{task.task}} -->
+      <div class="form-group row">
+        <button 
+        (click)=deleteTask(task)
+        class="btn btn-danger btn-sm col-sm-1">Delete</button>
+        <div class="col-sm-11">
+          <input type="text" value = {{task.task}} class="form-control" (keyUp.enter) = "updateTask($event.target.value, task.id)"/>
+          <!-- {{task.task}} -->
+        </div>
+      </div>
   </li>
 </ul>
+<small [class.d-none]="!existsTasks">In order to update a task, click on its field, update the text and click enter</small>

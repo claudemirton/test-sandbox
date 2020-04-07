@@ -8,8 +8,9 @@ import { Http } from '@angular/http';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
-  tasks: any[]
+  tasks: any[] = []
   private url = "http://localhost:8000/api/tasks"
+  existsTasks: boolean = false
 
   constructor(private http: Http) { }
 
@@ -17,6 +18,8 @@ export class TasksComponent implements OnInit {
     this.http.get(this.url)
     .subscribe(response => {
       this.tasks = response.json()
+      this.tasks = this.tasks.reverse()
+      this.checkForTasks()
     })
   }
 
@@ -29,6 +32,7 @@ export class TasksComponent implements OnInit {
         const newResponse:any = response
         task['id'] = JSON.parse(newResponse._body).data.id
         this.tasks.splice(0, 0, task)
+        this.checkForTasks()
       })
   }
 
@@ -37,7 +41,24 @@ export class TasksComponent implements OnInit {
       .subscribe(response => {
         let index = this.tasks.indexOf(task)
         this.tasks.splice(index, 1)
+        this.checkForTasks()
       })
+  }
+
+  updateTask(taskTitle, id) {
+    let task = { task: taskTitle }
+    let taskText = "task=" + taskTitle
+    this.http.put(this.url + '/' + id + '?' + taskText, [])
+      .subscribe(response => {
+        const newResponse: any = response
+        task['id'] = JSON.parse(newResponse._body).data.id
+        this.tasks['id'] = taskTitle
+        this.checkForTasks()
+      })
+  }
+
+  checkForTasks() {
+    this.existsTasks = (this.tasks.length > 0) ? true : false
   }
 
 }

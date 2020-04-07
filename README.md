@@ -58,5 +58,6 @@ Verify on http://localhost:4200
 ```
 http://localhost:8000/api/tasks GET - return JSON nodes of tasks
 http://localhost:8000/api/tasks POST - {task : '[string]'} - create a task
+http://localhost:8000/api/tasks/{id} PUT - {task : '[string]'} - update a task
 http://localhost:8000/api/tasks/{id} DELETE - delete a task
 ```
